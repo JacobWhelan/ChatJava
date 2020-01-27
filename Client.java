@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.*; 
 import java.util.Scanner;
 
-import com.sun.corba.se.spi.orbutil.fsm.Input; 
   
 // Client class 
 public class Client { 
@@ -12,11 +11,13 @@ public class Client {
         try { 
             Scanner input = new Scanner(System.in);
               
-            // getting localhost ip 
-            InetAddress ip = InetAddress.getByName("localhost");
+            // getting localhost ip from user
+            System.out.println("Input ip address of server:");
+            String ip = input.nextLine();
       
-            // establish the connection with server port 5056 
-            Socket socket = new Socket(ip, 5056); 
+            // establish the connection with server port 5056 with ip address provided
+            Socket socket = new Socket(ip, 5056);
+
       
             // obtaining input and out streams 
             DataInputStream dis = new DataInputStream(socket.getInputStream()); 
@@ -32,7 +33,7 @@ public class Client {
             Thread sendMessage = new Thread(new Runnable(){ 
             @Override
             public void run() { 
-                while (true){ 
+                while (true) {
   
                     // read the message to deliver. 
                     String line = input.nextLine(); 
@@ -51,7 +52,7 @@ public class Client {
             // receive message thread 
         Thread receiveMessage = new Thread(new Runnable() { 
             @Override
-            public void run() { 
+            public void run() {
 
                 while (true) { 
                     try { 
